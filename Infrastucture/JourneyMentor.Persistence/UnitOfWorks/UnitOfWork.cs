@@ -1,4 +1,5 @@
-﻿using JourneyMentor.Application.Interfaces.Repositories;
+﻿using JourneyMentor.Application.Interfaces.AutoMapper;
+using JourneyMentor.Application.Interfaces.Repositories;
 using JourneyMentor.Application.Interfaces.UnitOfWorks;
 using JourneyMentor.Persistence.Context;
 using JourneyMentor.Persistence.Repositories;
@@ -15,12 +16,14 @@ namespace JourneyMentor.Persistence.UnitOfWorks
     {
         private readonly AppDbContext dbContext;
         private readonly HttpClient _httpClient;
+        private readonly IMapper mapper;
 
 
-        public UnitOfWork(AppDbContext dbContext, IHttpClientFactory httpClientFactory)
+        public UnitOfWork(AppDbContext dbContext, IHttpClientFactory httpClientFactory, IMapper mapper)
         {
             this.dbContext = dbContext;
             this._httpClient = httpClientFactory.CreateClient();
+            this.mapper = mapper;
 
         }
         public async ValueTask DisposeAsync() => await dbContext.DisposeAsync();
@@ -28,7 +31,7 @@ namespace JourneyMentor.Persistence.UnitOfWorks
 
         public int Save() => dbContext.SaveChanges();
         public async Task<int> SaveAsync() => await dbContext.SaveChangesAsync();
-        IReadRepository<T> IUnitOfWork.GetReadRepository<T>() => new ReadRepository<T>(dbContext, _httpClient);
+        IReadRepository<T> IUnitOfWork.GetReadRepository<T>() => new ReadRepository<T>(dbContext, _httpClient,mapper);
         IWriteRepository<T> IUnitOfWork.GetWriteRepository<T>() => new WriteRepository<T>(dbContext, _httpClient);
     }
 }

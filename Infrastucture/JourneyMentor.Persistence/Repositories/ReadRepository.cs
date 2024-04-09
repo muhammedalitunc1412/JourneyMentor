@@ -1,4 +1,6 @@
-﻿using JourneyMentor.Application.Interfaces.Repositories;
+﻿using JourneyMentor.Application.Features.Flights.Queries.GetAllFlights;
+using JourneyMentor.Application.Interfaces.AutoMapper;
+using JourneyMentor.Application.Interfaces.Repositories;
 using JourneyMentor.Domain.Common;
 using JourneyMentor.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -18,12 +20,14 @@ namespace JourneyMentor.Persistence.Repositories
     {
         private readonly DbContext dbContext;
         private readonly HttpClient _httpClient;
+        private readonly IMapper mapper;
 
 
-        public ReadRepository(DbContext dbContext, HttpClient httpClient)
+        public ReadRepository(DbContext dbContext, HttpClient httpClient,IMapper mapper)
         {
             this.dbContext = dbContext;
             this._httpClient = httpClient;
+            this.mapper = mapper;
         }
 
         private DbSet<T> Table { get => dbContext.Set<T>(); }
@@ -78,9 +82,9 @@ namespace JourneyMentor.Persistence.Repositories
         }
 
 
-        public async Task<IList<T>> GetAllDataFromAvitionStackAsyn(string apiUrl, string accessKey)
+        public async Task<List<T>> GetAllDataFromAvitionStackAsyn(string apiUrl, string accessKey)
         {
-            List<Flight> allFlights = new List<Flight>();
+            List<T> allItems = new List<T>();
             int offset = 0;
             int limit = 100;
 
@@ -89,34 +93,28 @@ namespace JourneyMentor.Persistence.Repositories
                 string requestUrl = $"{apiUrl}?access_key={accessKey}&offset={offset}&limit={limit}";
 
                 HttpResponseMessage response = await _httpClient.GetAsync(requestUrl);
-                //if (response.IsSuccessStatusCode)
-                //{
-                //    string responseBody = await response.Content.ReadAsStringAsync();
-                //    var responseModel = JsonConvert.DeserializeObject<T>(responseBody);
-                //    var flightsData = responseModel.Data;
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Handle error
+                    break;
+                }
 
-                //    foreach (var flightData in flightsData)
-                //    {
-                //        var flight = MapToFlight(flightData);
-                //        allFlights.Add(flight);
-                //    }
+                string jsonString = await response.Content.ReadAsStringAsync();
+                var items = mapper.Map<List<T>, string>(jsonString);
 
+               // IList<T> items = JsonConvert.DeserializeObject<IList<T>>(jsonString);
+                allItems.AddRange(items);
 
-                //    var total = responseModel.Pagination.Total;
-                //    offset += limit;
-                //    if (offset >= total)
-                //    {
-                //        break;
-                //    }
-                //}
-                //else
-                //{
-                //    throw new Exception($"Failed to get data. Status code: {response.StatusCode}");
-                //}
+                offset += limit;
+
+                if (items.Count < limit)
+                {
+                    // Break the loop if there are no more items
+                    break;
+                }
             }
 
-           // return allFlights;
-            return default;
+            return allItems;
 
         }
     }

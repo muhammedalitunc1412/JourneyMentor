@@ -7,13 +7,23 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
+using System.Runtime.CompilerServices;
+using JourneyMentor.Application.DTOs;
 
 namespace JourneyMentor.Application
 {
     public static class Registration
     {
-        public static void AddApplication(this IServiceCollection services)
+        public static void AddApplication(this IServiceCollection services,IConfiguration configuration)
         {
+
+            var aviationStackSettings = configuration.GetSection("AviationStackDataForFlights");
+            AviationStackDataForFlights.ApiUrl = aviationStackSettings["ApiUrl"];
+            AviationStackDataForFlights.AccessKey = aviationStackSettings["AccessKey"];
+
+            var aviationStackSettingsForAirport = configuration.GetSection("AviationStackDataForAirport");
+            AviationStackDataForAirport.ApiUrl = aviationStackSettings["ApiUrl"];
+            AviationStackDataForAirport.AccessKey = aviationStackSettings["AccessKey"];
 
             var assembly = Assembly.GetExecutingAssembly();
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JourneyMentor.Application.DTOs
 {
-    public static class AviationStackData
+    public static class AviationStackDataForAirport
     {
         public static string ApiUrl { get; set; }
         public static string AccessKey { get; set; }

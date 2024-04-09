@@ -24,7 +24,7 @@ builder.Configuration
 
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddApplication();
+builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddCustomMapper();
 
 //builder.Services.AddSwaggerGen(c =>

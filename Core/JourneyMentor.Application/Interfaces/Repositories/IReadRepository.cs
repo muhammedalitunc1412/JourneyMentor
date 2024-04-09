@@ -29,6 +29,6 @@ namespace JourneyMentor.Application.Interfaces.Repositories
 
         Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null);
 
-        Task<IList<T>> GetAllDataFromAvitionStackAsyn(string apiUrl, string accessKey);
+        Task<List<T>> GetAllDataFromAvitionStackAsyn(string apiUrl, string accessKey);
     }
 }
