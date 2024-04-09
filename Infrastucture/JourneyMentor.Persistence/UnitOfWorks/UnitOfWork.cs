@@ -5,6 +5,7 @@ using JourneyMentor.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,17 +14,21 @@ namespace JourneyMentor.Persistence.UnitOfWorks
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext dbContext;
+        private readonly HttpClient _httpClient;
 
-        public UnitOfWork(AppDbContext dbContext)
+
+        public UnitOfWork(AppDbContext dbContext, IHttpClientFactory httpClientFactory)
         {
             this.dbContext = dbContext;
+            this._httpClient = httpClientFactory.CreateClient();
+
         }
         public async ValueTask DisposeAsync() => await dbContext.DisposeAsync();
 
 
         public int Save() => dbContext.SaveChanges();
         public async Task<int> SaveAsync() => await dbContext.SaveChangesAsync();
-        IReadRepository<T> IUnitOfWork.GetReadRepository<T>() => new ReadRepository<T>(dbContext);
-        IWriteRepository<T> IUnitOfWork.GetWriteRepository<T>() => new WriteRepository<T>(dbContext);
+        IReadRepository<T> IUnitOfWork.GetReadRepository<T>() => new ReadRepository<T>(dbContext, _httpClient);
+        IWriteRepository<T> IUnitOfWork.GetWriteRepository<T>() => new WriteRepository<T>(dbContext, _httpClient);
     }
 }

@@ -14,6 +14,7 @@ namespace JourneyMentor.Infrastructure
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<RedisCacheSettings>(configuration.GetSection("RedisCacheSettings"));
+
             services.AddTransient<IRedisCacheService, RedisCacheService>();
 
             services.AddAuthentication(opt =>

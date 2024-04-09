@@ -53,6 +53,6 @@ namespace JourneyMentor.Domain.Entities
         public float? LiveDirection { get; set; }
         public float? LiveSpeedHorizontal { get; set; }
         public float? LiveSpeedVertical { get; set; }
-        public bool LiveIsGround { get; set; }
+        public bool? LiveIsGround { get; set; }
     }
 }

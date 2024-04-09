@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JourneyMentor.Application.Features.Flights.Queries.GetAllFlights
 {
-    internal class GetAllFlightsQueryRequest : IRequest<IList<GetAllFlightsQueryResponse>>, ICacheableQuery
+    public class GetAllFlightsQueryRequest : IRequest<IList<GetAllFlightsQueryResponse>>
     {
         public string CacheKey => throw new NotImplementedException();
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JourneyMentor.Application.Features.Flights.Command
 {
-    internal class İmportFlightCommandHandler
+    public class İmportFlightCommandHandler
     {
     }
 }

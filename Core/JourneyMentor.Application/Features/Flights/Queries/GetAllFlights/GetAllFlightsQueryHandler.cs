@@ -1,5 +1,7 @@
-﻿using JourneyMentor.Application.Interfaces.AutoMapper;
+﻿using JourneyMentor.Application.Features.Products.Queries.GetAllProducts;
+using JourneyMentor.Application.Interfaces.AutoMapper;
 using JourneyMentor.Application.Interfaces.UnitOfWorks;
+using JourneyMentor.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace JourneyMentor.Application.Features.Flights.Queries.GetAllFlights
 {
-    internal class GetAllFlightsQueryHandler : IRequestHandler<GetAllFlightsQueryRequest, IList<GetAllFlightsQueryResponse>>
+    public class GetAllFlightsQueryHandler : IRequestHandler<GetAllFlightsQueryRequest, IList<GetAllFlightsQueryResponse>>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
@@ -19,9 +21,11 @@ namespace JourneyMentor.Application.Features.Flights.Queries.GetAllFlights
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
-        public Task<IList<GetAllFlightsQueryResponse>> Handle(GetAllFlightsQueryRequest request, CancellationToken cancellationToken)
+        public async Task<IList<GetAllFlightsQueryResponse>> Handle(GetAllFlightsQueryRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var flights = await unitOfWork.GetReadRepository<Flight>().GetAllAsync();
+            var map = mapper.Map<GetAllFlightsQueryResponse, Flight>(flights);
+            return map;
         }
     }
 }

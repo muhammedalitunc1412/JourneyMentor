@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JourneyMentor.Application.Features.Airports.Command
 {
-    internal class İmportAirportCommandValidator
+    public class İmportAirportCommandValidator
     {
     }
 }

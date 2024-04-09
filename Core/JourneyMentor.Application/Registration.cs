@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 namespace JourneyMentor.Application
 {
@@ -13,6 +14,7 @@ namespace JourneyMentor.Application
     {
         public static void AddApplication(this IServiceCollection services)
         {
+
             var assembly = Assembly.GetExecutingAssembly();
 
             services.AddTransient<ExceptionMiddleware>();
