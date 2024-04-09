@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace JourneyMentor.Persistence.Context
 {
-    public class AppDbContext : IdentityDbContext<User, Role, Guid>
+    public class AppDbContext : DbContext
     {
         public AppDbContext() { }
 
@@ -18,11 +18,8 @@ namespace JourneyMentor.Persistence.Context
         {
         }
 
-        public DbSet<Brand> Brands { get; set; }
-        public DbSet<Detail> Details { get; set; }
+        public DbSet<Airport> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductCategory> ProductCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

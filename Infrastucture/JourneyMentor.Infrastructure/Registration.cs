@@ -1,7 +1,5 @@
 ﻿using JourneyMentor.Application.Interfaces.RedisCache;
-using JourneyMentor.Application.Interfaces.Tokens;
 using JourneyMentor.Infrastructure.RedisCache;
-using JourneyMentor.Infrastructure.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,9 +13,6 @@ namespace JourneyMentor.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<TokenSettings>(configuration.GetSection("JWT"));
-            services.AddTransient<ITokenService, TokenService>();
-
             services.Configure<RedisCacheSettings>(configuration.GetSection("RedisCacheSettings"));
             services.AddTransient<IRedisCacheService, RedisCacheService>();
 

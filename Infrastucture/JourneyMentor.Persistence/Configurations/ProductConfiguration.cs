@@ -19,8 +19,7 @@ namespace YoutubeApi.Persistence.Configurations
                 BrandId = 1,
                 Discount = faker.Random.Decimal(0, 10),
                 Price = faker.Finance.Amount(10, 1000),
-                CreatedDate = DateTime.Now,
-                IsDeleted = false,
+              
             };
             Product product2 = new()
             {
@@ -30,8 +29,7 @@ namespace YoutubeApi.Persistence.Configurations
                 BrandId = 3,
                 Discount = faker.Random.Decimal(0, 10),
                 Price = faker.Finance.Amount(10, 1000),
-                CreatedDate = DateTime.Now,
-                IsDeleted = false,
+               
             };
 
             builder.HasData(product1, product2);

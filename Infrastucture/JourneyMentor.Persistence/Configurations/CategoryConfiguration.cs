@@ -14,8 +14,7 @@ namespace YoutubeApi.Persistence.Configurations
                 Name = "Elektrik",
                 Priorty = 1,
                 ParentId = 0,
-                IsDeleted = false,
-                CreatedDate = DateTime.Now,
+      
             };
 
             Category category2 = new()
@@ -24,8 +23,7 @@ namespace YoutubeApi.Persistence.Configurations
                 Name = "Moda",
                 Priorty = 2,
                 ParentId = 0,
-                IsDeleted = false,
-                CreatedDate = DateTime.Now,
+            
             };
 
             Category parent1 = new()
@@ -34,8 +32,7 @@ namespace YoutubeApi.Persistence.Configurations
                 Name = "Bilgisayar",
                 Priorty = 1,
                 ParentId = 1,
-                IsDeleted = false,
-                CreatedDate = DateTime.Now,
+            
             };
 
             Category parent2 = new()
@@ -44,8 +41,7 @@ namespace YoutubeApi.Persistence.Configurations
                 Name = "Kadın",
                 Priorty = 1,
                 ParentId = 2,
-                IsDeleted = false,
-                CreatedDate = DateTime.Now,
+        
             };
 
             builder.HasData(category1, category2, parent1, parent2);
