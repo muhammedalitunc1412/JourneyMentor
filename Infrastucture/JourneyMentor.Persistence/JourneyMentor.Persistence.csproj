@@ -21,4 +21,8 @@
     <ProjectReference Include="..\..\Core\JourneyMentor.Domain\JourneyMentor.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+  </ItemGroup>
+
 </Project>

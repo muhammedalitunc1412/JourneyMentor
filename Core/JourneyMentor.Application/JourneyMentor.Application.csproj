@@ -21,4 +21,15 @@
     <ProjectReference Include="..\JourneyMentor.Domain\JourneyMentor.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Airports\Command\" />
+    <Folder Include="Features\Airports\Exceptions\" />
+    <Folder Include="Features\Airports\Rules\" />
+    <Folder Include="Features\Airports\Queries\" />
+    <Folder Include="Features\Flights\Command\" />
+    <Folder Include="Features\Flights\Exceptions\" />
+    <Folder Include="Features\Flights\Rules\" />
+    <Folder Include="Features\Flights\Queries\" />
+  </ItemGroup>
+
 </Project>
